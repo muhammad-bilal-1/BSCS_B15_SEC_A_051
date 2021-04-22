@@ -184,11 +184,8 @@ class _HomePageState extends State<HomePage> {
   Color c;
   Uri url = Uri.parse("http://opentdb.com/api.php?amount=20&&type=$select");
   Random random = Random();
-  @override
-  void initState() {
-    super.initState();
-  }
 
+  @override
   Future<void> fetchQuestions() async {
     var res = await http.get(url);
     var decRes = jsonDecode(res.body);
@@ -199,13 +196,18 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  // void initState() {
+  //   starttimer();
+  //   super.initState();
+  // }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         toolbarHeight: 100.0,
         title: Text(
-          'Quiz App,$correct,$index',
+          'Quiz App,$correct,$index,$showtimer',
           style: TextStyle(
             color: Colors.black,
             fontSize: 40.0,
@@ -282,10 +284,18 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Center questionList() {
+  Column questionList() {
     ca = results[index].correctAnswer;
-    return Center(
-      child: ExpansionTile(
+    return Column(children: <Widget>[
+      Text(
+        '$timer',
+        style: TextStyle(
+          fontSize: 35.0,
+          fontWeight: FontWeight.w700,
+          fontFamily: 'Times New Roman',
+        ),
+      ),
+      ExpansionTile(
         title: Text(
           results[index].question,
           style: TextStyle(
@@ -337,8 +347,32 @@ class _HomePageState extends State<HomePage> {
               ));
         }).toList(),
       ),
-    );
+    ]);
+  }
+
+  void initState() {
+    starttimer();
+  }
+
+  void starttimer() async {
+    const onesec = Duration(seconds: 1);
+    Timer.periodic(onesec, (Timer t) {
+      if (timer <= 1) {
+        t.cancel();
+        index = index + 1;
+        timer = 30;
+        starttimer();
+      } else if (canceltimer == true) {
+        t.cancel();
+      } else {
+        timer = timer - 1;
+      }
+      showtimer = timer.toString();
+    });
   }
 }
 
+String showtimer = '30';
+bool canceltimer = false;
+int timer = 30;
 String ca;
