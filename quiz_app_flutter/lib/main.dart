@@ -89,6 +89,31 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.only(top: 20.0),
+            children: <Widget>[
+              ListTile(
+                title: Text('Home'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Home()),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text('Contact Us'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => contactus()),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -111,7 +136,7 @@ class _HomeState extends State<Home> {
                   );
                 });
               },
-              color: Colors.white,
+              color: Colors.yellow,
               height: 80.0,
               textColor: Colors.black,
               child: Text(
@@ -144,7 +169,7 @@ class _HomeState extends State<Home> {
                   ),
                 );
               },
-              color: Colors.white,
+              color: Colors.yellow,
               height: 80.0,
               textColor: Colors.black,
               child: Text(
@@ -182,7 +207,7 @@ class _HomePageState extends State<HomePage> {
   Quiz quiz;
   List<Results> results;
   Color c;
-  Uri url = Uri.parse("http://opentdb.com/api.php?amount=20&&type=$select");
+  Uri url = Uri.parse("https://opentdb.com/api.php?amount=20&&type=$select");
   Random random = Random();
 
   @override
@@ -205,12 +230,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        toolbarHeight: 100.0,
+        toolbarHeight: 200.0,
         title: Text(
-          'Quiz App,$correct,$index,$showtimer',
+          'Quiz App\nCorrect Answers:$correct\nTotal questions:$index\nRemaining Time:$showtimer',
           style: TextStyle(
             color: Colors.black,
-            fontSize: 40.0,
+            fontSize: 28.0,
+            fontWeight: FontWeight.bold,
           ),
         ),
         backgroundColor: Colors.yellow,
@@ -219,16 +245,30 @@ class _HomePageState extends State<HomePage> {
             bottom: Radius.circular(30),
           ),
         ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.push(
-              context,
-              new MaterialPageRoute(
-                builder: (context) => new SplashScreen(),
-              ),
-            );
-          },
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.only(top: 20.0),
+          children: <Widget>[
+            ListTile(
+              title: Text('Home'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Home()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Contact Us'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => contactus()),
+                );
+              },
+            ),
+          ],
         ),
       ),
       body: RefreshIndicator(
@@ -286,68 +326,63 @@ class _HomePageState extends State<HomePage> {
 
   Column questionList() {
     ca = results[index].correctAnswer;
-    return Column(children: <Widget>[
-      Text(
-        '$timer',
-        style: TextStyle(
-          fontSize: 35.0,
-          fontWeight: FontWeight.w700,
-          fontFamily: 'Times New Roman',
-        ),
-      ),
-      ExpansionTile(
-        title: Text(
-          results[index].question,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20.0,
-          ),
-        ),
-        children: results[index].allAnswers.map((m) {
-          return FlatButton(
-              onPressed: () {
-                if (m == ca && index < 10) {
-                  setState(() {
-                    index = index + 1;
-                    correct = correct + 1;
-                  });
-                } else if (m != ca && index < 10) {
-                  setState(() {
-                    index = index + 1;
-                  });
-                } else if (index >= 10) {
-                  setState(() {
-                    AlertDialog alert = AlertDialog(
-                      title: Text('Resuly'),
-                      content: Text('$correct/10'),
-                      actions: [
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ExpansionTile(
+            title: Text(
+              results[index].question,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+              ),
+            ),
+            children: results[index].allAnswers.map((m) {
+              return FlatButton(
+                  onPressed: () {
+                    if (m == ca && index < 10) {
+                      setState(() {
+                        index = index + 1;
+                        correct = correct + 1;
+                      });
+                    } else if (m != ca && index < 10) {
+                      setState(() {
+                        index = index + 1;
+                      });
+                    } else if (index >= 10) {
+                      setState(() {
+                        AlertDialog alert = AlertDialog(
+                          title: Text('Resuly'),
+                          content: Text('$correct/10'),
+                          actions: [
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Ok'),
+                            ),
+                          ],
+                        );
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext) {
+                            return alert;
                           },
-                          child: Text('Ok'),
-                        ),
-                      ],
-                    );
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext) {
-                        return alert;
-                      },
-                    );
-                  });
-                }
-              },
-              child: Text(
-                m,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                ),
-              ));
-        }).toList(),
-      ),
-    ]);
+                        );
+                      });
+                    }
+                  },
+                  child: Text(
+                    m,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                  ));
+            }).toList(),
+          ),
+        ]);
   }
 
   void initState() {
@@ -357,7 +392,7 @@ class _HomePageState extends State<HomePage> {
   void starttimer() async {
     const onesec = Duration(seconds: 1);
     Timer.periodic(onesec, (Timer t) {
-      if (timer <= 1) {
+      if (timer <= 1 && index < 10) {
         t.cancel();
         index = index + 1;
         timer = 30;
@@ -376,3 +411,181 @@ String showtimer = '30';
 bool canceltimer = false;
 int timer = 30;
 String ca;
+
+class contactus extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        toolbarHeight: 100.0,
+        title: Text(
+          'Quiz App',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 40.0,
+          ),
+        ),
+        backgroundColor: Colors.yellow,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(50),
+          ),
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            ListTile(
+              title: Text('Home'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Home()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Contact Us'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => contactus()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Contact Us',
+              style: TextStyle(
+                fontFamily: 'Quando',
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 40.0,
+                letterSpacing: 2.0,
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+              width: 350.0,
+              child: Divider(
+                color: Colors.white,
+                thickness: 4.0,
+              ),
+            ),
+            CircleAvatar(
+              backgroundImage: AssetImage('Images/myprofile.png'),
+              backgroundColor: Colors.yellow,
+              radius: 70.0,
+            ),
+            Text(
+              'Muhammad Bilal',
+              style: TextStyle(
+                fontFamily: 'Satisfy',
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 30.0,
+              ),
+            ),
+            Text(
+              'BSCS Student/ Developer',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+                letterSpacing: 5.0,
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+              width: 350.0,
+              child: Divider(
+                color: Colors.white,
+                thickness: 4.0,
+              ),
+            ),
+            Card(
+              color: Colors.yellow,
+              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+              child: ListTile(
+                leading: Icon(
+                  Icons.phone,
+                  color: Colors.black54,
+                  size: 30.0,
+                ),
+                title: Text(
+                  '+923047966966',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(60.0),
+                side: BorderSide(
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            Card(
+              color: Colors.yellow,
+              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+              child: ListTile(
+                leading: Icon(
+                  Icons.email,
+                  color: Colors.black54,
+                  size: 30.0,
+                ),
+                title: Text(
+                  'jutt.muhammadbilal@gmail.com',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(60.0),
+                side: BorderSide(
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            Card(
+              color: Colors.yellow,
+              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+              child: ListTile(
+                leading: Icon(
+                  Icons.home,
+                  color: Colors.black54,
+                  size: 30.0,
+                ),
+                title: Text(
+                  'Burewala',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(60.0),
+                side: BorderSide(
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
