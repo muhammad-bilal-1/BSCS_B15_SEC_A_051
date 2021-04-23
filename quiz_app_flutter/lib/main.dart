@@ -6,16 +6,6 @@ import 'package:quiz_app_flutter/quiz.dart';
 import 'dart:math';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
-String select;
-int index = 0;
-int correct = 0;
-var questions = new List(10);
-var category = new List(10);
-var correctAnswer = new List(10);
-var allAnswers = new List(10);
-var difficulty = new List(10);
-var type = new List(10);
-
 void main() {
   runApp(MaterialApp(
     initialRoute: '/',
@@ -728,11 +718,6 @@ class _AnswerScreenState extends State<AnswerScreen> {
   }
 }
 
-String showtimer = '30';
-bool canceltimer = false;
-int timer = 30;
-String ca;
-
 class contactus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -981,3 +966,17 @@ class contactus extends StatelessWidget {
     );
   }
 }
+
+String showtimer = '30';
+bool canceltimer = false;
+int timer = 30;
+String ca;
+String select;
+int index = 0;
+int correct = 0;
+var questions = new List(10);
+var category = new List(10);
+var correctAnswer = new List(10);
+var allAnswers = new List(10);
+var difficulty = new List(10);
+var type = new List(10);
