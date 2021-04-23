@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quiz_app_flutter/quiz.dart';
@@ -74,7 +73,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
-          toolbarHeight: 100.0,
+          toolbarHeight: 250.0,
           title: Text(
             'Quiz App',
             style: TextStyle(
@@ -85,31 +84,77 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.yellow,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(50),
+              bottom: Radius.circular(80),
             ),
           ),
         ),
         drawer: Drawer(
           child: ListView(
-            padding: EdgeInsets.only(top: 20.0),
             children: <Widget>[
-              ListTile(
-                title: Text('Home'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home()),
-                  );
-                },
+              Container(
+                padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
+                color: Colors.yellow,
+                child: ListTile(
+                  title: Image.asset(
+                    'Images/book.png',
+                    width: 500.0,
+                    height: 140.0,
+                    fit: BoxFit.cover,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => contactus()),
+                    );
+                  },
+                ),
               ),
-              ListTile(
-                title: Text('Contact Us'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => contactus()),
-                  );
-                },
+              Container(
+                padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+                color: Colors.white,
+                child: Center(
+                  child: ListTile(
+                    title: Text(
+                      'Home',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    onTap: () {
+                      correct = 0;
+                      index = 0;
+                      questions = null;
+                      correctAnswer = null;
+                      difficulty = null;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 30.0),
+                color: Colors.white,
+                child: ListTile(
+                  title: Text(
+                    'Contact Us',
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => contactus()),
+                    );
+                  },
+                ),
               ),
             ],
           ),
@@ -150,7 +195,7 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 20.0,
               child: Divider(
-                color: Colors.black,
+                color: Colors.white,
               ),
             ),
             FlatButton(
@@ -248,25 +293,71 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: Drawer(
         child: ListView(
-          padding: EdgeInsets.only(top: 20.0),
           children: <Widget>[
-            ListTile(
-              title: Text('Home'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Home()),
-                );
-              },
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
+              color: Colors.yellow,
+              child: ListTile(
+                title: Image.asset(
+                  'Images/book.png',
+                  width: 500.0,
+                  height: 140.0,
+                  fit: BoxFit.cover,
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => contactus()),
+                  );
+                },
+              ),
             ),
-            ListTile(
-              title: Text('Contact Us'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => contactus()),
-                );
-              },
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+              color: Colors.white,
+              child: Center(
+                child: ListTile(
+                  title: Text(
+                    'Home',
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onTap: () {
+                    correct = 0;
+                    index = 0;
+                    questions = null;
+                    correctAnswer = null;
+                    difficulty = null;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 30.0),
+              color: Colors.white,
+              child: ListTile(
+                title: Text(
+                  'Contact Us',
+                  style: TextStyle(
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => contactus()),
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -286,14 +377,6 @@ class _HomePageState extends State<HomePage> {
                   );
                 case ConnectionState.done:
                   if (snapshot.hasError) return errorData(snapshot);
-                  for (int i = 1; i < 10; i++) {
-                    questions[i] = results[i].question;
-                    category[i] = results[i].category;
-                    difficulty[i] = results[i].difficulty;
-                    type[i] = results[i].type;
-                    allAnswers[i] = results[i].allAnswers;
-                    correctAnswer[i] = results[i].correctAnswer;
-                  }
                   return questionList();
               }
               return null;
@@ -341,34 +424,25 @@ class _HomePageState extends State<HomePage> {
             children: results[index].allAnswers.map((m) {
               return FlatButton(
                   onPressed: () {
-                    if (m == ca && index < 10) {
+                    if (m == ca && index < 9) {
                       setState(() {
                         index = index + 1;
                         correct = correct + 1;
                       });
-                    } else if (m != ca && index < 10) {
+                    } else if (m != ca && index < 9) {
                       setState(() {
+                        questions[index] = results[index].question;
+                        correctAnswer[index] = results[index].correctAnswer;
+                        difficulty[index] = '$m';
                         index = index + 1;
                       });
-                    } else if (index >= 10) {
+                    } else if (index == 9) {
                       setState(() {
-                        AlertDialog alert = AlertDialog(
-                          title: Text('Resuly'),
-                          content: Text('$correct/10'),
-                          actions: [
-                            FlatButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Ok'),
-                            ),
-                          ],
-                        );
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext) {
-                            return alert;
-                          },
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                            builder: (context) => new AnswerScreen(),
+                          ),
                         );
                       });
                     }
@@ -384,26 +458,273 @@ class _HomePageState extends State<HomePage> {
           ),
         ]);
   }
+}
 
-  void initState() {
-    starttimer();
-  }
+class AnswerScreen extends StatefulWidget {
+  @override
+  _AnswerScreenState createState() => _AnswerScreenState();
+}
 
-  void starttimer() async {
-    const onesec = Duration(seconds: 1);
-    Timer.periodic(onesec, (Timer t) {
-      if (timer <= 1 && index < 10) {
-        t.cancel();
-        index = index + 1;
-        timer = 30;
-        starttimer();
-      } else if (canceltimer == true) {
-        t.cancel();
-      } else {
-        timer = timer - 1;
-      }
-      showtimer = timer.toString();
-    });
+class _AnswerScreenState extends State<AnswerScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          toolbarHeight: 100.0,
+          title: Text(
+            'Result',
+            style: TextStyle(
+              color: Colors.red,
+              fontSize: 40.0,
+            ),
+          ),
+          backgroundColor: Colors.yellow,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(15),
+            ),
+          ),
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
+                color: Colors.yellow,
+                child: ListTile(
+                  title: Image.asset(
+                    'Images/book.png',
+                    width: 500.0,
+                    height: 140.0,
+                    fit: BoxFit.cover,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => contactus()),
+                    );
+                  },
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+                color: Colors.white,
+                child: Center(
+                  child: ListTile(
+                    title: Text(
+                      'Home',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    onTap: () {
+                      correct = 0;
+                      index = 0;
+                      questions = null;
+                      correctAnswer = null;
+                      difficulty = null;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 30.0),
+                color: Colors.white,
+                child: ListTile(
+                  title: Text(
+                    'Contact Us',
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => contactus()),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: Container(
+          color: Colors.deepPurple,
+          child: ListView(
+            children: <Widget>[
+              Container(
+                color: Colors.white,
+                child: SizedBox(
+                  width: 20.0,
+                  height: 20.0,
+                  child: Divider(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Container(
+                color: Colors.white,
+                child: Row(children: <Widget>[
+                  SizedBox(
+                    width: 20.0,
+                    height: 30.0,
+                    child: Divider(
+                      color: Colors.white,
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        'Wrong Questions',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30.0,
+                          color: Colors.red,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20.0,
+                    height: 20.0,
+                    child: Divider(
+                      color: Colors.white,
+                    ),
+                  ),
+                ]),
+              ),
+              Container(
+                color: Colors.white,
+                child: SizedBox(
+                  width: 20.0,
+                  height: 20.0,
+                  child: Divider(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              for (int i = 0; i < 10; i++)
+                if (questions[i] != null)
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        color: Colors.yellow,
+                        child: Row(children: <Widget>[
+                          SizedBox(
+                            width: 20.0,
+                            height: 20.0,
+                            child: Divider(
+                              color: Colors.white,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              '\nQuestion No ${i + 1}:       ${questions[i]}\n',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0,
+                                color: Colors.blue,
+                                //decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20.0,
+                            height: 20.0,
+                            child: Divider(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ]),
+                      ),
+                      Container(
+                        color: Colors.deepPurple,
+                        child: Row(children: <Widget>[
+                          SizedBox(
+                            width: 20.0,
+                            height: 20.0,
+                            child: Divider(
+                              color: Colors.white,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              '\nCorrect Answer:     ${correctAnswer[i]}',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0,
+                                  color: Colors.green
+                                  //decoration: TextDecoration.underline,
+                                  ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 40.0,
+                            height: 20.0,
+                            child: Divider(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ]),
+                      ),
+                      Container(
+                        color: Colors.deepPurple,
+                        child: Row(children: <Widget>[
+                          SizedBox(
+                            width: 20.0,
+                            height: 20.0,
+                            child: Divider(
+                              color: Colors.white,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              '\nSelected Answer:     ${difficulty[i]}',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0,
+                                  color: Colors.red
+                                  //decoration: TextDecoration.underline,
+                                  ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 40.0,
+                            height: 20.0,
+                            child: Divider(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ]),
+                      ),
+                      Row(children: <Widget>[
+                        Expanded(
+                          child: SizedBox(
+                            height: 20.0,
+                            child: Divider(
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ]),
+                    ],
+                  )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -416,6 +737,7 @@ class contactus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         toolbarHeight: 100.0,
@@ -435,25 +757,71 @@ class contactus extends StatelessWidget {
       ),
       drawer: Drawer(
         child: ListView(
-          padding: EdgeInsets.zero,
           children: <Widget>[
-            ListTile(
-              title: Text('Home'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Home()),
-                );
-              },
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
+              color: Colors.yellow,
+              child: ListTile(
+                title: Image.asset(
+                  'Images/book.png',
+                  width: 500.0,
+                  height: 140.0,
+                  fit: BoxFit.cover,
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => contactus()),
+                  );
+                },
+              ),
             ),
-            ListTile(
-              title: Text('Contact Us'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => contactus()),
-                );
-              },
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+              color: Colors.white,
+              child: Center(
+                child: ListTile(
+                  title: Text(
+                    'Home',
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onTap: () {
+                    correct = 0;
+                    index = 0;
+                    questions = null;
+                    correctAnswer = null;
+                    difficulty = null;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 30.0),
+              color: Colors.white,
+              child: ListTile(
+                title: Text(
+                  'Contact Us',
+                  style: TextStyle(
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => contactus()),
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -462,6 +830,14 @@ class contactus extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(
+              height: 40.0,
+              width: 350.0,
+              child: Divider(
+                color: Colors.white,
+                thickness: 4.0,
+              ),
+            ),
             Text(
               'Contact Us',
               style: TextStyle(
@@ -485,6 +861,14 @@ class contactus extends StatelessWidget {
               backgroundColor: Colors.yellow,
               radius: 70.0,
             ),
+            SizedBox(
+              height: 20.0,
+              width: 350.0,
+              child: Divider(
+                color: Colors.white,
+                thickness: 4.0,
+              ),
+            ),
             Text(
               'Muhammad Bilal',
               style: TextStyle(
@@ -492,6 +876,14 @@ class contactus extends StatelessWidget {
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 30.0,
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+              width: 350.0,
+              child: Divider(
+                color: Colors.white,
+                thickness: 4.0,
               ),
             ),
             Text(
@@ -504,7 +896,7 @@ class contactus extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 20.0,
+              height: 60.0,
               width: 350.0,
               child: Divider(
                 color: Colors.white,
