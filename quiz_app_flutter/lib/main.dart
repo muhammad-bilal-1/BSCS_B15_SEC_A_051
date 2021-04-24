@@ -267,7 +267,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         toolbarHeight: 200.0,
         title: Text(
-          'Quiz App\nCorrect Answers:$correct\nTotal questions:$index\nRemaining Time:$showtimer',
+          'Quiz App\nCorrect Answers:$correct\nTotal questions:$index\nRemaining Time:$timer',
           style: TextStyle(
             color: Colors.black,
             fontSize: 28.0,
@@ -397,56 +397,86 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Column questionList() {
+  Expanded questionList() {
     ca = results[index].correctAnswer;
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ExpansionTile(
-            title: Text(
+    return Expanded(
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            SizedBox(
+              width: 20.0,
+              height: 100.0,
+              child: Divider(
+                color: Colors.white,
+              ),
+            ),
+            Text(
               results[index].question,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0,
               ),
             ),
-            children: results[index].allAnswers.map((m) {
-              return FlatButton(
-                  onPressed: () {
-                    if (m == ca && index < 9) {
-                      setState(() {
-                        index = index + 1;
-                        correct = correct + 1;
-                      });
-                    } else if (m != ca && index < 9) {
-                      setState(() {
-                        questions[index] = results[index].question;
-                        correctAnswer[index] = results[index].correctAnswer;
-                        difficulty[index] = '$m';
-                        index = index + 1;
-                      });
-                    } else if (index == 9) {
-                      setState(() {
-                        Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                            builder: (context) => new AnswerScreen(),
+            SizedBox(
+              width: 20.0,
+              height: 100.0,
+              child: Divider(
+                color: Colors.white,
+              ),
+            ),
+            Column(
+              children: results[index].allAnswers.map((m) {
+                return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      FlatButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(60.0),
+                            side: BorderSide(
+                              color: Colors.blue,
+                            ),
                           ),
-                        );
-                      });
-                    }
-                  },
-                  child: Text(
-                    m,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
-                    ),
-                  ));
-            }).toList(),
-          ),
-        ]);
+                          onPressed: () {
+                            if (m == ca && index < 9) {
+                              setState(() {
+                                index = index + 1;
+                                correct = correct + 1;
+                              });
+                            } else if (m != ca && index < 9) {
+                              setState(() {
+                                questions[index] = results[index].question;
+                                correctAnswer[index] =
+                                    results[index].correctAnswer;
+                                difficulty[index] = '$m';
+                                index = index + 1;
+                              });
+                            } else if (index == 9) {
+                              setState(() {
+                                Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                    builder: (context) => new AnswerScreen(),
+                                  ),
+                                );
+                              });
+                            }
+                          },
+                          minWidth: 300,
+                          color: Colors.yellow,
+                          height: 60.0,
+                          textColor: Colors.black,
+                          child: Text(
+                            m,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30.0,
+                            ),
+                          )),
+                    ]);
+              }).toList(),
+            )
+          ]),
+    );
   }
 }
 
@@ -967,9 +997,9 @@ class contactus extends StatelessWidget {
   }
 }
 
-String showtimer = '30';
+String showtimer = '28';
 bool canceltimer = false;
-int timer = 30;
+int timer = 28;
 String ca;
 String select;
 int index = 0;
