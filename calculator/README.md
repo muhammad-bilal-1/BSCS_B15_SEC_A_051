@@ -1,5 +1,11 @@
 # calculator
 
+
+1st Commit for Splash Screen with Animation on its Text
+
+![Splash screen](https://user-images.githubusercontent.com/80968009/117530701-0d034380-aff8-11eb-9bb7-3af86e3143f6.png)
+
+
 A new Flutter application.
 
 ## Getting Started
