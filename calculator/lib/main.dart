@@ -139,7 +139,72 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: Container(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          FlatButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(60.0),
+              side: BorderSide(
+                color: Colors.blue,
+              ),
+            ),
+            onPressed: () {
+              setState(() {
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                    builder: (context) => new Simple(),
+                  ),
+                );
+              });
+            },
+            color: Colors.black,
+            height: 80.0,
+            textColor: Colors.white,
+            child: Text(
+              'Simple Calculator',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 37.0,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20.0,
+            child: Divider(
+              color: Colors.white,
+            ),
+          ),
+          FlatButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(60.0),
+              side: BorderSide(
+                color: Colors.blue,
+              ),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                new MaterialPageRoute(
+                  builder: (context) => new Hard(),
+                ),
+              );
+            },
+            color: Colors.black,
+            height: 80.0,
+            textColor: Colors.white,
+            child: Text(
+              'Hard Calculator',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 37.0,
+              ),
+            ),
+          ),
+        ],
+      ),
     )));
   }
 }
@@ -370,6 +435,30 @@ class Contactus extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class Simple extends StatefulWidget {
+  @override
+  _SimpleState createState() => _SimpleState();
+}
+
+class _SimpleState extends State<Simple> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class Hard extends StatefulWidget {
+  @override
+  _HardState createState() => _HardState();
+}
+
+class _HardState extends State<Hard> {
   @override
   Widget build(BuildContext context) {
     return Container();
