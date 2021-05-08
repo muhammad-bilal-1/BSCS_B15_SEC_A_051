@@ -449,7 +449,95 @@ class Simple extends StatefulWidget {
 class _SimpleState extends State<Simple> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return SafeArea(
+        child: MaterialApp(
+            home: Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        toolbarHeight: 250.0,
+        title: Text(
+          'Simple Calculator',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 40.0,
+          ),
+        ),
+        backgroundColor: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(80),
+          ),
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
+              color: Colors.black,
+              child: ListTile(
+                title: Image.asset(
+                  'Images/cal.png',
+                  width: 500.0,
+                  height: 140.0,
+                  fit: BoxFit.cover,
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Contactus()),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+              color: Colors.white,
+              child: Center(
+                child: ListTile(
+                  title: Text(
+                    'Home',
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 30.0),
+              color: Colors.white,
+              child: ListTile(
+                title: Text(
+                  'Contact Us',
+                  style: TextStyle(
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Contactus()),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+      body: Container(),
+    )));
   }
 }
 
@@ -461,6 +549,94 @@ class Hard extends StatefulWidget {
 class _HardState extends State<Hard> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return SafeArea(
+        child: MaterialApp(
+            home: Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        toolbarHeight: 250.0,
+        title: Text(
+          'Hard Calculator',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 40.0,
+          ),
+        ),
+        backgroundColor: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(80),
+          ),
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
+              color: Colors.black,
+              child: ListTile(
+                title: Image.asset(
+                  'Images/cal.png',
+                  width: 500.0,
+                  height: 140.0,
+                  fit: BoxFit.cover,
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Contactus()),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+              color: Colors.white,
+              child: Center(
+                child: ListTile(
+                  title: Text(
+                    'Home',
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 30.0),
+              color: Colors.white,
+              child: ListTile(
+                title: Text(
+                  'Contact Us',
+                  style: TextStyle(
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Contactus()),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+      body: Container(),
+    )));
   }
 }
