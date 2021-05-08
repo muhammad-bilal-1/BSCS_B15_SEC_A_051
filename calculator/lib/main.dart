@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -547,96 +548,255 @@ class Hard extends StatefulWidget {
 }
 
 class _HardState extends State<Hard> {
+  String equation = "0";
+  String result = "0";
+  String expression = "";
+  double equationFontSize = 38.0;
+  double resultFontSize = 48.0;
+
+  buttonPressed(String buttonText) {
+    setState(() {
+      if (buttonText == "C") {
+        equation = "0";
+        result = "0";
+        equationFontSize = 38.0;
+        resultFontSize = 48.0;
+      } else if (buttonText == "⌫") {
+        equationFontSize = 48.0;
+        resultFontSize = 38.0;
+        equation = equation.substring(0, equation.length - 1);
+        if (equation == "") {
+          equation = "0";
+        }
+      } else if (buttonText == "=") {
+        equationFontSize = 38.0;
+        resultFontSize = 48.0;
+
+        expression = equation;
+        expression = expression.replaceAll('×', '*');
+        expression = expression.replaceAll('÷', '/');
+
+        try {
+          Parser p = Parser();
+          Expression exp = p.parse(expression);
+
+          ContextModel cm = ContextModel();
+          result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+        } catch (e) {
+          result = "Error";
+        }
+      } else {
+        equationFontSize = 48.0;
+        resultFontSize = 38.0;
+        if (equation == "0") {
+          equation = buttonText;
+        } else {
+          equation = equation + buttonText;
+        }
+      }
+    });
+  }
+
+  Widget buildButton(
+      String buttonText, double buttonHeight, Color buttonColor) {
+    return Container(
+      padding: EdgeInsets.all(5.0),
+      height: MediaQuery.of(context).size.height * 0.12 * buttonHeight,
+      color: Colors.white,
+      child: FlatButton(
+          color: buttonColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(800.0),
+              side: BorderSide(
+                  color: buttonColor, width: 1, style: BorderStyle.solid)),
+          onPressed: () => buttonPressed(buttonText),
+          child: Text(
+            buttonText,
+            style: TextStyle(
+              fontWeight: FontWeight.normal,
+              color: Colors.white,
+              fontSize: 30.0,
+            ),
+          )),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: MaterialApp(
             home: Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: 250.0,
-        title: Text(
-          'Hard Calculator',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 40.0,
-          ),
-        ),
-        backgroundColor: Colors.black,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(80),
-          ),
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
-              color: Colors.black,
-              child: ListTile(
-                title: Image.asset(
-                  'Images/cal.png',
-                  width: 500.0,
-                  height: 140.0,
-                  fit: BoxFit.cover,
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Contactus()),
-                  );
-                },
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
-              color: Colors.white,
-              child: Center(
-                child: ListTile(
+                backgroundColor: Colors.black54,
+                appBar: AppBar(
+                  centerTitle: true,
+                  toolbarHeight: 80.0,
                   title: Text(
-                    'Home',
+                    'Hard Calculator',
                     style: TextStyle(
+                      color: Colors.white,
                       fontSize: 40.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
                     ),
                   ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Home()),
-                    );
-                  },
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 30.0),
-              color: Colors.white,
-              child: ListTile(
-                title: Text(
-                  'Contact Us',
-                  style: TextStyle(
-                    fontSize: 40.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                  backgroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(30),
+                    ),
                   ),
                 ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Contactus()),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: Container(),
-    )));
+                drawer: Drawer(
+                  child: ListView(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
+                        color: Colors.black,
+                        child: ListTile(
+                          title: Image.asset(
+                            'Images/cal.png',
+                            width: 500.0,
+                            height: 140.0,
+                            fit: BoxFit.cover,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Contactus()),
+                            );
+                          },
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                            top: 30.0, bottom: 30.0, left: 60.0),
+                        color: Colors.white,
+                        child: Center(
+                          child: ListTile(
+                            title: Text(
+                              'Home',
+                              style: TextStyle(
+                                fontSize: 40.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Home()),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                            top: 30.0, bottom: 30.0, left: 30.0),
+                        color: Colors.white,
+                        child: ListTile(
+                          title: Text(
+                            'Contact Us',
+                            style: TextStyle(
+                              fontSize: 40.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Contactus()),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                body: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Container(
+                        color: Colors.black,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                        child: Text(
+                          equation,
+                          style: TextStyle(
+                            fontSize: equationFontSize,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+                        child: Text(
+                          result,
+                          style: TextStyle(
+                            fontSize: resultFontSize,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            width: MediaQuery.of(context).size.width * .75,
+                            child: Table(
+                              children: [
+                                TableRow(children: [
+                                  buildButton("C", 1, Colors.black),
+                                  buildButton("⌫", 1, Colors.black),
+                                  buildButton("÷", 1, Colors.black),
+                                ]),
+                                TableRow(children: [
+                                  buildButton("7", 1, Colors.black54),
+                                  buildButton("8", 1, Colors.black54),
+                                  buildButton("9", 1, Colors.black54),
+                                ]),
+                                TableRow(children: [
+                                  buildButton("4", 1, Colors.black54),
+                                  buildButton("5", 1, Colors.black54),
+                                  buildButton("6", 1, Colors.black54),
+                                ]),
+                                TableRow(children: [
+                                  buildButton("1", 1, Colors.black54),
+                                  buildButton("2", 1, Colors.black54),
+                                  buildButton("3", 1, Colors.black54),
+                                ]),
+                                TableRow(children: [
+                                  buildButton(".", 1, Colors.black54),
+                                  buildButton("0", 1, Colors.black54),
+                                  buildButton("00", 1, Colors.black54),
+                                ]),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.25,
+                            child: Table(
+                              children: [
+                                TableRow(children: [
+                                  buildButton("×", 1, Colors.black),
+                                ]),
+                                TableRow(children: [
+                                  buildButton("-", 1, Colors.black),
+                                ]),
+                                TableRow(children: [
+                                  buildButton("+", 1, Colors.black),
+                                ]),
+                                TableRow(children: [
+                                  buildButton("=", 2, Colors.redAccent),
+                                ]),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ]))));
   }
 }
