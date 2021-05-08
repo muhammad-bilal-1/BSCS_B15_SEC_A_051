@@ -60,13 +60,13 @@ class _HomeState extends State<Home> {
         centerTitle: true,
         toolbarHeight: 250.0,
         title: Text(
-          'Quiz App',
+          'Calculator',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontSize: 40.0,
           ),
         ),
-        backgroundColor: Colors.yellow,
+        backgroundColor: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(80),
