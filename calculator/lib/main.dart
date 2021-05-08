@@ -448,6 +448,9 @@ class Simple extends StatefulWidget {
 }
 
 class _SimpleState extends State<Simple> {
+  TextEditingController value1 = TextEditingController();
+  TextEditingController value2 = TextEditingController();
+  String c1;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -456,7 +459,7 @@ class _SimpleState extends State<Simple> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        toolbarHeight: 250.0,
+        toolbarHeight: 80.0,
         title: Text(
           'Simple Calculator',
           style: TextStyle(
@@ -467,7 +470,7 @@ class _SimpleState extends State<Simple> {
         backgroundColor: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(80),
+            bottom: Radius.circular(30),
           ),
         ),
       ),
@@ -537,7 +540,91 @@ class _SimpleState extends State<Simple> {
           ],
         ),
       ),
-      body: Container(),
+      body: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: TextField(
+                controller: value1,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'value1',
+                ),
+              ),
+            ),
+            Container(
+              child: DropdownButton<String>(
+                focusColor: Colors.black,
+                icon: Icon(Icons.arrow_downward),
+                iconSize: 30,
+                iconEnabledColor: Colors.black,
+                elevation: 16,
+                style:
+                    TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
+                onChanged: (String newValue) {
+                  setState(() {
+                    c1 = newValue;
+                  });
+                },
+                items: <String>['+', '-', '/', '*', '%']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30.0,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: TextField(
+                controller: value2,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'value2',
+                ),
+              ),
+            ),
+            FlatButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(60.0),
+                side: BorderSide(
+                  color: Colors.blue,
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                      builder: (context) => new Simple(),
+                    ),
+                  );
+                });
+              },
+              color: Colors.blue,
+              height: 80.0,
+              textColor: Colors.white,
+              child: Text(
+                '=',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 47.0,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     )));
   }
 }
