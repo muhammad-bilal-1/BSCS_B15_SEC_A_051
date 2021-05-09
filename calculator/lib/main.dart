@@ -137,6 +137,28 @@ class _HomeState extends State<Home> {
                 },
               ),
             ),
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+              color: Colors.white,
+              child: Center(
+                child: ListTile(
+                  title: Text(
+                    'History',
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AnswerScreen()),
+                    );
+                  },
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -296,6 +318,28 @@ class Contactus extends StatelessWidget {
                   },
                 ),
               ),
+              Container(
+                padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+                color: Colors.white,
+                child: Center(
+                  child: ListTile(
+                    title: Text(
+                      'History',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AnswerScreen()),
+                      );
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -448,9 +492,11 @@ class Simple extends StatefulWidget {
 }
 
 class _SimpleState extends State<Simple> {
-  TextEditingController value1 = TextEditingController();
-  TextEditingController value2 = TextEditingController();
-  String c1;
+  String value1;
+  String value2;
+  String operator;
+  int result;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -537,6 +583,28 @@ class _SimpleState extends State<Simple> {
                 },
               ),
             ),
+            Container(
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+              color: Colors.white,
+              child: Center(
+                child: ListTile(
+                  title: Text(
+                    'History',
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AnswerScreen()),
+                    );
+                  },
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -548,50 +616,57 @@ class _SimpleState extends State<Simple> {
             Padding(
               padding: EdgeInsets.all(10),
               child: TextField(
-                controller: value1,
+                maxLength: 8,
+                textInputAction: TextInputAction.next,
+                obscureText: false,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'value1',
                 ),
+                onChanged: (text) {
+                  value1 = text;
+                },
               ),
             ),
-            Container(
-              child: DropdownButton<String>(
-                focusColor: Colors.black,
-                icon: Icon(Icons.arrow_downward),
-                iconSize: 30,
-                iconEnabledColor: Colors.black,
-                elevation: 16,
-                style:
-                    TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
-                onChanged: (String newValue) {
-                  setState(() {
-                    c1 = newValue;
-                  });
-                },
-                items: <String>['+', '-', '/', '*', '%']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30.0,
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
+            DropdownButton<String>(
+              focusColor: Colors.black,
+              icon: Icon(Icons.arrow_downward),
+              iconSize: 30,
+              iconEnabledColor: Colors.black,
+              elevation: 30,
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              onChanged: (String newValue) {
+                setState(() {
+                  operator = newValue;
+                });
+              },
+              items: <String>['+', '-', '/', '*', '%']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(
+                    value,
+                    style: TextStyle(color: Colors.black, fontSize: 30.0),
+                  ),
+                );
+              }).toList(),
             ),
             Padding(
               padding: EdgeInsets.all(10),
               child: TextField(
-                controller: value2,
+                maxLength: 8,
+                textInputAction: TextInputAction.done,
+                obscureText: false,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'value2',
                 ),
+                onChanged: (text) {
+                  value2 = text;
+                },
               ),
             ),
             FlatButton(
@@ -603,11 +678,35 @@ class _SimpleState extends State<Simple> {
               ),
               onPressed: () {
                 setState(() {
-                  Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                      builder: (context) => new Simple(),
-                    ),
+                  if (operator == '+') {
+                    result = int.parse(value1) + int.parse(value2);
+                  } else if (operator == '-') {
+                    result = int.parse(value1) - int.parse(value2);
+                  } else if (operator == '-') {
+                    result = int.parse(value1) * int.parse(value2);
+                  } else if (operator == '-') {
+                    result = int.parse(value1) % int.parse(value2);
+                  } else if (operator == '/') {
+                    result = int.parse(value1) ~/ int.parse(value2);
+                  }
+
+                  questions[index] = value1 + operator + value2;
+                  answer[index] = result;
+                  type[index] = 'simple';
+                  index++;
+                  if (index > 9) {
+                    start++;
+                  }
+
+                  AlertDialog alert = AlertDialog(
+                    title: Text('$result'),
+                    actions: [],
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext) {
+                      return alert;
+                    },
                   );
                 });
               },
@@ -671,6 +770,13 @@ class _HardState extends State<Hard> {
           result = '${exp.evaluate(EvaluationType.REAL, cm)}';
         } catch (e) {
           result = "Error";
+        }
+        questions[index] = expression;
+        answer[index] = result;
+        type[index] = 'hard';
+        index++;
+        if (index > 9) {
+          start++;
         }
       } else {
         equationFontSize = 48.0;
@@ -798,17 +904,40 @@ class _HardState extends State<Hard> {
                           },
                         ),
                       ),
+                      Container(
+                        padding: EdgeInsets.only(
+                            top: 30.0, bottom: 30.0, left: 60.0),
+                        color: Colors.white,
+                        child: Center(
+                          child: ListTile(
+                            title: Text(
+                              'History',
+                              style: TextStyle(
+                                fontSize: 40.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AnswerScreen()),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 body: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Container(
                         color: Colors.black,
                         alignment: Alignment.centerRight,
-                        padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
                         child: Text(
                           equation,
                           style: TextStyle(
@@ -819,7 +948,6 @@ class _HardState extends State<Hard> {
                       ),
                       Container(
                         alignment: Alignment.centerRight,
-                        padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
                         child: Text(
                           result,
                           style: TextStyle(
@@ -828,6 +956,66 @@ class _HardState extends State<Hard> {
                           ),
                         ),
                       ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            FlatButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(60.0),
+                                side: BorderSide(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  if (ur < index) {
+                                    ur++;
+                                  }
+
+                                  equation = questions[index - ur];
+                                  result = answer[index - ur];
+                                });
+                              },
+                              color: Colors.black,
+                              height: 80.0,
+                              textColor: Colors.white,
+                              child: Text(
+                                'undo',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30.0,
+                                ),
+                              ),
+                            ),
+                            FlatButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(60.0),
+                                side: BorderSide(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  if (ur > 1) {
+                                    ur--;
+                                  }
+
+                                  equation = questions[index - ur];
+                                  result = answer[index - ur];
+                                });
+                              },
+                              color: Colors.black,
+                              height: 80.0,
+                              textColor: Colors.white,
+                              child: Text(
+                                'redo',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30.0,
+                                ),
+                              ),
+                            ),
+                          ]),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -885,5 +1073,607 @@ class _HardState extends State<Hard> {
                         ],
                       ),
                     ]))));
+  }
+}
+
+var questions = new List(1000);
+var answer = new List(1000);
+var type = new List(1000);
+int index = 0;
+int start = 0;
+int end = 9;
+int ur = 0;
+
+class AnswerScreen extends StatefulWidget {
+  @override
+  _AnswerScreenState createState() => _AnswerScreenState();
+}
+
+class _AnswerScreenState extends State<AnswerScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          toolbarHeight: 80.0,
+          title: Text(
+            'Hard Calculator',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 40.0,
+            ),
+          ),
+          backgroundColor: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
+            ),
+          ),
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
+                color: Colors.black,
+                child: ListTile(
+                  title: Image.asset(
+                    'Images/cal.png',
+                    width: 500.0,
+                    height: 140.0,
+                    fit: BoxFit.cover,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Contactus()),
+                    );
+                  },
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 30.0, left: 60.0),
+                color: Colors.white,
+                child: Center(
+                  child: ListTile(
+                    title: Text(
+                      'Home',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 30.0, left: 20.0),
+                color: Colors.white,
+                child: Center(
+                  child: ListTile(
+                    title: Text(
+                      'Hard Calculator',
+                      style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Hard()),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 30.0, left: 20.0),
+                color: Colors.white,
+                child: Center(
+                  child: ListTile(
+                    title: Text(
+                      'Simple Calculator',
+                      style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Simple()),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 30.0, left: 30.0),
+                color: Colors.white,
+                child: ListTile(
+                  title: Text(
+                    'Contact Us',
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Contactus()),
+                    );
+                  },
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 30.0, left: 60.0),
+                color: Colors.white,
+                child: Center(
+                  child: ListTile(
+                    title: Text(
+                      'History',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AnswerScreen()),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: Container(
+            color: Colors.white,
+            child: ListView(
+              children: <Widget>[
+                Container(
+                  color: Colors.white,
+                  child: SizedBox(
+                    width: 20.0,
+                    height: 20.0,
+                    child: Divider(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: Row(children: <Widget>[
+                    SizedBox(
+                      width: 20.0,
+                      height: 30.0,
+                      child: Divider(
+                        color: Colors.white,
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          'History',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 35.0,
+                            color: Colors.green,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20.0,
+                      height: 20.0,
+                      child: Divider(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ]),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: SizedBox(
+                    width: 20.0,
+                    height: 20.0,
+                    child: Divider(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Column(children: <Widget>[
+                  SizedBox(
+                    width: 400.0,
+                    height: 20.0,
+                    child: Divider(
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '1',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '${type[start + 0]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Text(
+                    'Equation: ${questions[start + 0]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.green,
+                    ),
+                  ),
+                  Text(
+                    'Solution: ${answer[start + 0]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.red,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 400.0,
+                    height: 20.0,
+                    child: Divider(
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '2',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '${type[start + 1]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Text(
+                    'Equation: ${questions[start + 1]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.green,
+                    ),
+                  ),
+                  Text(
+                    'Solution: ${answer[start + 1]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.red,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 400.0,
+                    height: 20.0,
+                    child: Divider(
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '3',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '${type[start + 2]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Text(
+                    'Equation: ${questions[start + 2]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.green,
+                    ),
+                  ),
+                  Text(
+                    'Solution: ${answer[start + 2]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.red,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 400.0,
+                    height: 20.0,
+                    child: Divider(
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '4',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '${type[start + 3]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Text(
+                    'Equation: ${questions[start + 3]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.green,
+                    ),
+                  ),
+                  Text(
+                    'Solution: ${answer[start + 3]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.red,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 400.0,
+                    height: 20.0,
+                    child: Divider(
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '5',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '${type[start + 4]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Text(
+                    'Equation: ${questions[start + 4]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.green,
+                    ),
+                  ),
+                  Text(
+                    'Solution: ${answer[start + 4]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.red,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 400.0,
+                    height: 20.0,
+                    child: Divider(
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '6',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '${type[start + 5]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Text(
+                    'Equation: ${questions[start + 5]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.green,
+                    ),
+                  ),
+                  Text(
+                    'Solution: ${answer[start + 5]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.red,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 400.0,
+                    height: 20.0,
+                    child: Divider(
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '7',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '${type[start + 6]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Text(
+                    'Equation: ${questions[start + 6]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.green,
+                    ),
+                  ),
+                  Text(
+                    'Solution: ${answer[start + 6]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.red,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 400.0,
+                    height: 20.0,
+                    child: Divider(
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '8',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '${type[start + 7]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Text(
+                    'Equation: ${questions[start + 7]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.green,
+                    ),
+                  ),
+                  Text(
+                    'Solution: ${answer[start + 7]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.red,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 400.0,
+                    height: 20.0,
+                    child: Divider(
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '9',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '${type[start + 8]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Text(
+                    'Equation: ${questions[start + 8]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.green,
+                    ),
+                  ),
+                  Text(
+                    'Solution: ${answer[start + 8]}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.red,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 400.0,
+                    height: 20.0,
+                    child: Divider(
+                      color: Colors.black,
+                    ),
+                  ),
+                ]),
+                Row(children: <Widget>[
+                  Expanded(
+                    child: SizedBox(
+                      height: 20.0,
+                      child: Divider(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ]),
+              ],
+            )),
+      ),
+    );
   }
 }
