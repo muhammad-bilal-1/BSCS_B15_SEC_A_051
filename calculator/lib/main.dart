@@ -96,7 +96,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+              padding: EdgeInsets.only(top: 30.0, left: 60.0),
               color: Colors.white,
               child: Center(
                 child: ListTile(
@@ -118,7 +118,53 @@ class _HomeState extends State<Home> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 30.0),
+              padding: EdgeInsets.only(top: 30.0, left: 20.0),
+              color: Colors.white,
+              child: Center(
+                child: ListTile(
+                  title: Text(
+                    'Hard Calculator',
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Hard()),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 30.0, left: 20.0),
+              color: Colors.white,
+              child: Center(
+                child: ListTile(
+                  title: Text(
+                    'Simple Calculator',
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Simple()),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 30.0, left: 30.0),
               color: Colors.white,
               child: ListTile(
                 title: Text(
@@ -138,7 +184,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+              padding: EdgeInsets.only(top: 30.0, left: 60.0),
               color: Colors.white,
               child: Center(
                 child: ListTile(
@@ -277,7 +323,7 @@ class Contactus extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+                padding: EdgeInsets.only(top: 30.0, left: 60.0),
                 color: Colors.white,
                 child: Center(
                   child: ListTile(
@@ -299,7 +345,53 @@ class Contactus extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 30.0),
+                padding: EdgeInsets.only(top: 30.0, left: 20.0),
+                color: Colors.white,
+                child: Center(
+                  child: ListTile(
+                    title: Text(
+                      'Hard Calculator',
+                      style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Hard()),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 30.0, left: 20.0),
+                color: Colors.white,
+                child: Center(
+                  child: ListTile(
+                    title: Text(
+                      'Simple Calculator',
+                      style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Simple()),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 30.0, left: 30.0),
                 color: Colors.white,
                 child: ListTile(
                   title: Text(
@@ -319,7 +411,7 @@ class Contactus extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+                padding: EdgeInsets.only(top: 30.0, left: 60.0),
                 color: Colors.white,
                 child: Center(
                   child: ListTile(
@@ -542,7 +634,7 @@ class _SimpleState extends State<Simple> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+              padding: EdgeInsets.only(top: 30.0, left: 60.0),
               color: Colors.white,
               child: Center(
                 child: ListTile(
@@ -564,7 +656,53 @@ class _SimpleState extends State<Simple> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 30.0),
+              padding: EdgeInsets.only(top: 30.0, left: 20.0),
+              color: Colors.white,
+              child: Center(
+                child: ListTile(
+                  title: Text(
+                    'Hard Calculator',
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Hard()),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 30.0, left: 20.0),
+              color: Colors.white,
+              child: Center(
+                child: ListTile(
+                  title: Text(
+                    'Simple Calculator',
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Simple()),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 30.0, left: 30.0),
               color: Colors.white,
               child: ListTile(
                 title: Text(
@@ -584,7 +722,7 @@ class _SimpleState extends State<Simple> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 30.0, bottom: 30.0, left: 60.0),
+              padding: EdgeInsets.only(top: 30.0, left: 60.0),
               color: Colors.white,
               child: Center(
                 child: ListTile(
@@ -860,8 +998,7 @@ class _HardState extends State<Hard> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(
-                            top: 30.0, bottom: 30.0, left: 60.0),
+                        padding: EdgeInsets.only(top: 30.0, left: 60.0),
                         color: Colors.white,
                         child: Center(
                           child: ListTile(
@@ -883,8 +1020,54 @@ class _HardState extends State<Hard> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(
-                            top: 30.0, bottom: 30.0, left: 30.0),
+                        padding: EdgeInsets.only(top: 30.0, left: 20.0),
+                        color: Colors.white,
+                        child: Center(
+                          child: ListTile(
+                            title: Text(
+                              'Hard Calculator',
+                              style: TextStyle(
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Hard()),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 30.0, left: 20.0),
+                        color: Colors.white,
+                        child: Center(
+                          child: ListTile(
+                            title: Text(
+                              'Simple Calculator',
+                              style: TextStyle(
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Simple()),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 30.0, left: 30.0),
                         color: Colors.white,
                         child: ListTile(
                           title: Text(
@@ -905,8 +1088,7 @@ class _HardState extends State<Hard> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(
-                            top: 30.0, bottom: 30.0, left: 60.0),
+                        padding: EdgeInsets.only(top: 30.0, left: 60.0),
                         color: Colors.white,
                         child: Center(
                           child: ListTile(
