@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        toolbarHeight: 250.0,
+        toolbarHeight: 200.0,
         title: Text(
           'Calculator',
           style: TextStyle(
@@ -818,11 +818,11 @@ class _SimpleState extends State<Simple> {
                 setState(() {
                   if (operator == '+') {
                     result = int.parse(value1) + int.parse(value2);
-                  } else if (operator == '-') {
-                    result = int.parse(value1) - int.parse(value2);
-                  } else if (operator == '-') {
+                  } else if (operator == '*') {
                     result = int.parse(value1) * int.parse(value2);
                   } else if (operator == '-') {
+                    result = int.parse(value1) - int.parse(value2);
+                  } else if (operator == '%') {
                     result = int.parse(value1) % int.parse(value2);
                   } else if (operator == '/') {
                     result = int.parse(value1) ~/ int.parse(value2);
